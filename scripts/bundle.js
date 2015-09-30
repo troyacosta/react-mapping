@@ -32707,6 +32707,9 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	render: function render() {
+		var productList = this.props.products.map(function (product) {
+			return React.createElement(ProductComponent, { product: product });
+		});
 		return React.createElement(
 			'div',
 			{ className: 'row' },
@@ -32746,7 +32749,11 @@ module.exports = React.createClass({
 						)
 					)
 				),
-				React.createElement('tbody', null)
+				React.createElement(
+					'tbody',
+					null,
+					productList
+				)
 			)
 		);
 	}
