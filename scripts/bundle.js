@@ -3480,9 +3480,7 @@ function drainQueue() {
         currentQueue = queue;
         queue = [];
         while (++queueIndex < len) {
-            if (currentQueue) {
-                currentQueue[queueIndex].run();
-            }
+            currentQueue[queueIndex].run();
         }
         queueIndex = -1;
         len = queue.length;
@@ -3534,6 +3532,7 @@ process.binding = function (name) {
     throw new Error('process.binding is not supported');
 };
 
+// TODO(shtylman)
 process.cwd = function () { return '/' };
 process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
@@ -32614,6 +32613,9 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	render: function render() {
+		var catList = this.props.cats.map(function (cat) {
+			return React.createElement(CatComponent, { cat: cat });
+		});
 		return React.createElement(
 			'div',
 			{ className: 'row' },
@@ -32648,7 +32650,11 @@ module.exports = React.createClass({
 						)
 					)
 				),
-				React.createElement('tbody', null)
+				React.createElement(
+					'tbody',
+					null,
+					catList
+				)
 			)
 		);
 	}
